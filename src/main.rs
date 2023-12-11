@@ -1,11 +1,16 @@
-mod file_load;
-mod project;
+#![windows_subsystem = "windows"]
 
-use rodio::{Decoder, OutputStream, OutputStreamHandle, Source};
+mod error;
+mod file_load;
+mod player;
+mod project;
+mod song;
+
 use std::io::Cursor;
 
-use eframe::egui;
-use eframe::egui::Key;
+use crate::player::Player;
+use eframe::{egui, egui::Key};
+use rodio::{Decoder, OutputStream, OutputStreamHandle, Source};
 
 fn main() {
     let native_options = eframe::NativeOptions::default();
@@ -18,16 +23,13 @@ fn main() {
 }
 
 struct EasySQ {
-    _useless_output_stream: OutputStream,
-    output: OutputStreamHandle,
+    player: Player,
 }
 
 impl EasySQ {
     fn new(cc: &eframe::CreationContext<'_>) -> Self {
-        let (stream, stream_handle) = OutputStream::try_default().unwrap();
         Self {
-            _useless_output_stream: stream,
-            output: stream_handle,
+            player: Player::new().unwrap(),
         }
     }
 }
@@ -48,7 +50,6 @@ impl EasySQ {
         let file_data = std::fs::read(file_name).unwrap();
         let file_cursor = Cursor::new(file_data);
         let decoded = Decoder::new(file_cursor).unwrap().amplify(1.0);
-        self.output.play_raw(decoded.convert_samples()).unwrap();
         println!("Started {file_name}");
     }
 }

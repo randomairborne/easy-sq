@@ -1,6 +1,6 @@
-use parking_lot::RwLock;
-use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+
+use serde::{Deserialize, Serialize};
 
 pub struct Project {
     manifest: ProjectManifest,
@@ -17,7 +17,7 @@ pub struct ProjectManifest {
 pub struct TrackManifest {
     id: String,
     name: String,
-    duration: usize
+    duration: usize,
 }
 
 #[derive(Deserialize, Serialize)]

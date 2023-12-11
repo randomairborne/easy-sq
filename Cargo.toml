@@ -6,9 +6,10 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-eframe = "0.24"
-parking_lot = "0.12"
-rodio = { version = "0.17" }
 serde = { version = "1", features = ["derive"] }
+rodio = { version = "0.17", default-features = false }
+embed-manifest = "1"
+parking_lot = "0.12"
 serde_json = "1"
+eframe = "0.24"
 thiserror = "1"
