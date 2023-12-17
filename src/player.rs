@@ -1,7 +1,6 @@
-use crate::error::Error;
-use crate::song::Song;
-use rodio::cpal::traits::HostTrait;
-use rodio::{DeviceTrait, Devices, OutputStream, OutputStreamHandle};
+use rodio::{cpal::traits::HostTrait, DeviceTrait, Devices, OutputStream, OutputStreamHandle};
+
+use crate::{error::Error, song::Song};
 
 pub struct Player {
     _useless_output_stream: OutputStream,
@@ -22,7 +21,10 @@ impl Player {
             output: stream_handle,
         })
     }
+
     pub fn pause(&mut self) {}
+
     pub fn play(&mut self) {}
+
     pub fn set_song(&mut self, song: Song) {}
 }
