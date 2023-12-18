@@ -5,16 +5,16 @@ use rodio::Decoder;
 
 use crate::{player::Player, project::Project};
 
-struct EasySQ {
+pub struct EasySQ {
     player: Player,
     project: Project,
 }
 
 impl EasySQ {
-    fn new(cc: &eframe::CreationContext<'_>) -> Self {
+    pub(crate) fn new(cc: &eframe::CreationContext<'_>, project: Project) -> Self {
         Self {
             player: Player::new().unwrap(),
-            project: todo!(),
+            project,
         }
     }
 }
