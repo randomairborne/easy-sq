@@ -1,0 +1,18 @@
+{
+    "tracks": [
+        {
+            "id": "skimble",
+            "name": "Skimbleshanks the Railway Cat",
+            "duration": 69420
+        },
+        {
+            "id": "heaviside",
+            "name": "Journey to the Heaviside Layer",
+            "duration": 42069
+        }
+    ],
+    "metadata": {
+        "author": "valkyrie_pilot",
+        "title": "Sample EasySQ project"
+    }
+}

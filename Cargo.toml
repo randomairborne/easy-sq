@@ -6,10 +6,12 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+symphonia = { version = "0.5.3", features = ["all-codecs", "all-formats"] }
+eframe = { version = "0.24", features = ["persistence"] }
 serde = { version = "1", features = ["derive"] }
-rodio = { version = "0.17", default-features = false }
 embed-manifest = "1"
 parking_lot = "0.12"
 serde_json = "1"
-eframe = { version = "0.24", features = ["persistence"] }
 thiserror = "1"
+cpal = { version = "0.15.2", features = ["asio", "jack"] }
+egui_extras = "0.24.2"

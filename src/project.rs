@@ -1,44 +1,46 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, path::Path};
 
 use serde::{Deserialize, Serialize};
-use crate::error::Error;
 
-use std::path::Path;
+use crate::error::Error;
 pub struct Project {
-    manifest: ProjectManifest,
-    loaded_tracks: HashMap<String, Vec<f32>>,
+    pub manifest: ProjectManifest,
+    pub loaded_tracks: HashMap<String, Vec<f32>>,
 }
 
 impl Project {
     pub(crate) fn load(path: impl AsRef<Path>) -> Result<Self, Error> {
         let path = path.as_ref();
-        let meta_file = std::fs::OpenOptions::new().open(path.join("metadata.json"))?;
+        let meta_path = path.join("metadata.json");
+        println!("{}", meta_path.display());
+        let meta_file = std::fs::OpenOptions::new().read(true).open(meta_path)?;
         let manifest: ProjectManifest = serde_json::from_reader(meta_file)?;
-        for track in manifest.tracks {
-            track.
+        let mut loaded_tracks = HashMap::new();
+        for track in &manifest.tracks {
+            loaded_tracks.insert(track.name.clone(), vec![]);
         }
-        Self {
+        Ok(Self {
             manifest,
-            loaded_tracks
-        }
+            loaded_tracks,
+        })
     }
 }
 
 #[derive(Deserialize, Serialize)]
 pub struct ProjectManifest {
-    tracks: Vec<TrackManifest>,
-    metadata: ProjectMetadata,
+    pub tracks: Vec<TrackManifest>,
+    pub metadata: ProjectMetadata,
 }
 
 #[derive(Deserialize, Serialize)]
 pub struct TrackManifest {
-    id: String,
-    name: String,
-    duration: usize,
+    pub id: String,
+    pub name: String,
+    pub duration: usize,
 }
 
 #[derive(Deserialize, Serialize)]
 pub struct ProjectMetadata {
-    author: String,
-    title: String,
+    pub author: String,
+    pub title: String,
 }

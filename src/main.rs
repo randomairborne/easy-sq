@@ -1,7 +1,6 @@
 #![windows_subsystem = "windows"]
 
-use crate::project::Project;
-use crate::ui::EasySQ;
+use crate::{project::Project, ui::EasySQ};
 
 mod error;
 mod file_load;
@@ -12,7 +11,8 @@ mod ui;
 
 fn main() {
     let native_options = eframe::NativeOptions::default();
-    let project = Project::load().unwrap();
+    let project_path = std::env::args().nth(1).unwrap();
+    let project = Project::load(project_path).unwrap();
     eframe::run_native(
         "EasySQ",
         native_options,
